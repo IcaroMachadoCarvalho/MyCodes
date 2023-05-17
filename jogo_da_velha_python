@@ -1,0 +1,322 @@
+"""
+Feito por Ícaro Machado de  Carvalho - Data: 08/05/2023
+Jogo da Velha contra o Computador
+
+"""
+import random # Biblioteca responsável pelas escolhas
+
+def jogar_novamente(): # Def para jogar novamente
+      restart = input("Jogar novamente Sim/Não ").lower() # função lower deixa o valor em minúsculo, mais fácil de controlar essas variáveis
+      if(restart == "s" or restart == "sim"):# condição para reiniciar
+          main() #Def inicia o jogo
+      elif(restart == "não" or restart == "nao" or restart == "n"):# Se não acaba o programa
+          print("-----------------------------------------------------------")
+          print("Fim do programa")
+          print("-----------------------------------------------------------")
+      else:# Em caso de valor inválido
+          print("-----------------------------------------------------------")
+          print("[ERROR]: Não identificado")
+          print("-----------------------------------------------------------")
+          jogar_novamente() #Def repete a pergunta
+
+def main(): # Def geral para iniciar ou reiniciar
+    l1 = [" "," "," "] # Linha 1
+    ls1 = [False,False,False]# Linha 1 situação
+    l2 = [" "," "," "] # Linha 2
+    ls2 = [False,False,False]# Linha 2 situação
+    l3 = [" "," "," "] # Linha 3
+    ls3 = [False,False,False]# Linha 3 situação
+    op = [1,2,3] # Opções de colunas disponíveis
+    partida = 0 # Var que guarda se a partida acabou ou não
+    vez = 0 # Var que Quantifica os turnos
+    ocupados1 = [False,False,False] # Variável que marca se a posição l1c1,l1c2,l1c3 está ocupados
+    ocupados2 = [False,False,False] # Variável que marca se a posição l2c1,l2c2,l2c3 está ocupados
+    ocupados3 = [False,False,False]# Variável que marca se a posição l3c1,l3c2,l3c3 está ocupados
+    lt1 = [0,0,0] # Variável que indica as tentativas nas linha 1
+    lt2 = [0,0,0] # Variável que indica as tentativas nas linha 2
+    lt3 = [0,0,0] # Variável que indica as tentativas nas linha 3
+    
+    def verificar(partida): #Def que analisa as possibilidades e define quem ganhou
+        if(l1[0]  == "X" and l1[1]  == "X" and l1[2] == "X"): # Primeira linha ocupada por X
+            print("-----------------------------------------------------------")
+            print("O jogador 1 Ganhou")
+            print("-----------------------------------------------------------") 
+            return True # Ao retornar esse valor para a def acaba a partida
+        elif(l1[0]  == "O" and l1[1]  == "O" and l1[2] == "O"): # Primeira linha ocupada O
+            print("-----------------------------------------------------------")
+            print("O jogador 2 Ganhou")
+            print("-----------------------------------------------------------")
+            return True
+        if(l2[0]  == "X" and l2[1]  == "X" and l2[2] == "X"): # Segunda linha ocupada por X
+            print("-----------------------------------------------------------")
+            print("O jogador 1 Ganhou")
+            print("-----------------------------------------------------------")
+            return True
+        elif(l2[0]  == "O" and l2[1]  == "O" and l2[2] == "O"): # Segunda linha ocupada por O
+            print("-----------------------------------------------------------")
+            print("O jogador 2 Ganhou")
+            print("-----------------------------------------------------------")
+            return True
+        if(l3[0] == "X" and l3[1] == "X" and l3[2] == "X"): # Terceira linha ocupada por X
+            print("-----------------------------------------------------------")
+            print("O jogador 1 Ganhou") # Horizontal
+            print("-----------------------------------------------------------")
+            return True
+        elif(l3[0]  == "O" and l3[1]  == "O" and l3[2] == "O"): # Terceira linha ocupada por O
+            print("-----------------------------------------------------------")
+            print("O jogador 2 Ganhou")
+            print("-----------------------------------------------------------")
+            return True
+        if(l1[0]  == "X" and l2[0]  == "X" and l3[0] == "X"): # Primeira Coluna ocupada por X
+            print("-----------------------------------------------------------")
+            print("O jogador 1 Ganhou")
+            print("-----------------------------------------------------------")
+            return True
+        elif(l1[0]  == "O" and l2[0]  == "O" and l3[0] == "O"): # Primeira Coluna ocupada por O
+            print("-----------------------------------------------------------")
+            print("O jogador 2 Ganhou")
+            print("-----------------------------------------------------------")
+            return True
+        if(l1[1]  == "X" and l2[1]  == "X" and l3[1] == "X"): # Segunda coluna ocupada por X
+            print("-----------------------------------------------------------")
+            print("O jogador 1 Ganhou")
+            print("-----------------------------------------------------------")
+            return True
+        elif(l1[1]  == "O" and l2[1]  == "O" and l3[1] == "O"): # Segunda coluna ocupada por O
+            print("-----------------------------------------------------------")
+            print("O jogador 2 Ganhou")
+            print("-----------------------------------------------------------")
+            return True
+        if(l1[2] == "X" and l2[2] == "X" and l3[2] == "X"): # Terceira coluna ocupada por X
+            print("-----------------------------------------------------------")
+            print("O jogador 1 Ganhou") # Vertical
+            print("-----------------------------------------------------------")
+            return True
+        elif(l1[2] == "O" and l2[2] == "O" and l3[2] == "O"): # Terceira coluna ocupada por O
+            print("-----------------------------------------------------------")
+            print("O jogador 2 Ganhou")
+            print("-----------------------------------------------------------")
+            return True
+        if(l1[0]  == "X" and l2[1]  == "X" and l3[2] == "X"):# Diagonal feita da linha 1 e coluna 1 a linha 3 e coluna 3 por X
+            print("-----------------------------------------------------------")
+            print("O jogador 1 Ganhou")
+            print("-----------------------------------------------------------")
+            return True
+        elif(l1[0]  == "O" and l2[1]  == "O" and l3[2] == "O"):# Diagonal feita da linha 1 e coluna 1 a linha 3 e coluna 3 por O
+            print("-----------------------------------------------------------")
+            print("O jogador 2 Ganhou")
+            print("-----------------------------------------------------------")
+            return True
+        if(l1[2]  == "X" and l2[1]  == "X" and l3[0] == "X"):# Diagonal feita da linha 1 e coluna 3 a linha 3 e coluna 1 por X
+            print("-----------------------------------------------------------")  
+            print("O jogador 1 Ganhou")
+            print("-----------------------------------------------------------")
+            return True
+        elif(l1[2]  == "O" and l2[1]  == "O" and l3[0] == "O"):# Diagonal feita da linha 1 e coluna 3 a linha 3 e coluna 1 por O
+            print("-----------------------------------------------------------")
+            print("O jogador 2 Ganhou")
+            print("-----------------------------------------------------------")
+            return True
+        else:
+            return False # Ao retornar esse valor para a def não interfere na partida
+            
+    def prog():# def inicia e administra os processos de turnos
+        
+        def matriz1(n): # Def responsável por preencher a l1 com o argumento n
+            if(vez % 2 == 1 and ls1[n] == False):
+                l1[n] = "X" # A posição vai ser preenchida com esse marcador
+                ls1[n] = True # A posição foi selecionada 
+                lt1[n] += 1 # Números de tentativas nessa posição
+                ocupados1[n] = True # Considera essa posição ocupado
+                
+            elif(vez % 2 == 0 and ls1[n] == False):
+                l1[n] = "O"
+                ls1[n] = True
+                lt1[n] += 1
+                ocupados1[n] = True
+                
+        def matriz2(n):# Def responsável por preencher a l2
+            if(vez % 2 == 1 and ls2[n] == False):
+                l2[n] = "X"
+                ls2[n] = True
+                lt2[n] += 1
+                ocupados2[n] = True
+                
+            elif(vez % 2 == 0 and ls2[n] == False):
+                l2[n] = "O"
+                ls2[n] = True
+                lt2[n] += 1
+                ocupados2[n] = True
+                
+        def matriz3(n):# Def responsável por preencher a l3
+            if(vez % 2 == 1 and ls3[n] == False):
+                l3[n] = "X"
+                ls3[n] = True
+                lt3[n] += 1
+                ocupados3[n] = True
+                
+            elif(vez % 2 == 0 and ls3[n] == False):
+                l3[n] = "O" 
+                ls3[n] = True
+                lt3[n] += 1
+                ocupados3[n] = True
+        def mostrar(): # Função que mostra o gráfico
+            print("    | | ")
+            print("  ",*l1,"" ) # * tira as chaves da lista
+            print(" - -|-|- -")
+            print("  ",*l2,)
+            print(" - -|-|- -")
+            print("  ",*l3, )
+            print("    | | ")
+        
+            '''
+            Debugar a situação das variáveis de controle
+            print(f"ls1: {ls1}")
+            print(f"ls2: {ls2}")
+            print(f"ls3: {ls3}")
+            
+            print(f"Ocupados 1: {ocupados1}")
+            print(f"Ocupados 2: {ocupados2}")
+            print(f"Ocupados 3: {ocupados3}")
+            
+            print(f"lt1: {lt1}")
+            print(f"lt2: {lt2}")
+            print(f"lt3: {lt3}")'''
+            
+        def matriz(): # Def que recebe os dados 
+            
+            if(vez % 2 == 1): # Gerencia os turnos do Joagdor e da máquina
+                print("Sua vez jogador 1")
+                print("-----------------------------------------------------------")
+                l = int(input("Qual linha? ")) # Pega a informação sobre a linha que se quer jogar
+                print("-----------------------------------------------------------")
+                c = int(input("Qual coluna? "))# Pega a informação sobre a coluna que se quer jogar
+                print("-----------------------------------------------------------")
+            elif(vez % 2 == 0): # A máquina faz sua jogada
+                print("A vez do computador")
+                print("-----------------------------------------------------------")
+                pc1 = random.choice(op) # Via biblioteca random
+                pc2 = random.choice(op)
+                l = pc1 # Armazenar a escolha da linha
+                c = pc2 # Armazenar a escolha da linha
+                
+            if(l not in op or c not in op): # Caso fora dessas opções, o jogador vai ter que inserir o número novamente até digitar números válidos 
+                print("[ERRO] Tente novamente!")
+                print("-----------------------------------------------------------")
+                prog() #Repetir os input's da linha e coluna
+                
+            if(l == 1): # Localizar aonde o jogador quer marcar 
+                if(c == 1):
+                    if(ocupados1[0] == False): # Verifica se está disponível esse espaço
+                        matriz1(0)
+                        mostrar() #def mosta a tabela se disponível
+                    else: # Se ocupado volta para o jogador 
+                        print("Já está ocupado!Tente outro!")
+                        print("-----------------------------------------------------------")
+                        prog() # Reinicia a entrada de dados do jogador
+                    
+                elif(c == 2):
+                    if(ocupados1[1] == False):
+                        matriz1(1)
+                        mostrar()
+                    else:
+                        print("Já está ocupado!Tente outro!")
+                        print("-----------------------------------------------------------")
+                        prog()
+                elif(c == 3):
+                    if(ocupados1[2] == False):
+                        matriz1(2)
+                        mostrar()
+                    else:
+                        print("Já está ocupado!Tente outro!")
+                        print("-----------------------------------------------------------")
+                        prog()
+            
+            if(l == 2): # Localizar aonde o jogador quer marcar 
+                if(c == 1):
+                    if(ocupados2[0] == False):
+                        matriz2(0)
+                        mostrar()
+                    else:
+                        print("Já está ocupado!Tente outro!")
+                        print("-----------------------------------------------------------")
+                        prog()
+                    
+                elif(c == 2):
+                    if(ocupados2[1] == False):
+                        matriz2(1)
+                        mostrar()
+                    else:
+                        print("Já está ocupado!Tente outro!")
+                        print("-----------------------------------------------------------")
+                        prog()
+                elif(c == 3):
+                    if(ocupados2[2] == False):
+                        matriz2(2)
+                        mostrar()
+                    else:
+                        print("Já está ocupado!Tente outro!")
+                        print("-----------------------------------------------------------")
+                        prog()
+                    
+            if(l == 3): # Localizar aonde o jogador quer marcar 
+                if(c == 1):
+                    if(ocupados3[0] == False):
+                        matriz3(0)
+                        mostrar()
+                    else:
+                        print("Já está ocupado!Tente outro!")
+                        print("-----------------------------------------------------------")
+                        prog()
+                                
+                elif(c == 2):
+                    if(ocupados3[1] == False):
+                        matriz3(1)
+                        mostrar()
+                    else:
+                        print("Já está ocupado!Tente outro!")
+                        print("-----------------------------------------------------------")
+                        prog()
+                elif(c == 3):
+                    if(ocupados3[2] == False):
+                        matriz3(2)
+                        mostrar()
+                    else:
+                        print("Já está ocupado!Tente outro!")
+                        print("-----------------------------------------------------------")
+                        prog()
+
+                            
+        matriz() # Chama a def que interage com o usuário 
+    
+    while verificar(partida) != True:# Loop While para repetir as ações de cima 
+        print("-----------------------------------------------------------")
+        if(r == "n" or r == "não" or r == "nao" or verificar(partida) == True):# Nessas situações finaliza o loop
+            break # A situação da def vereficar estiver true é que acabou a partida
+        if(vez == 7):# Finalizar o jogo em caso de empate
+            print("Deu empate")
+            print("-----------------------------------------------------------")
+            break
+        vez += 1 # Var usada para alternar jogadores
+        prog()# Repete a def para continuar o jogo 
+      
+    jogar_novamente()
+
+print("Seja bem vindo ao jogo da velha")
+print("-----------------------------------------------------------")
+r = input("Iniciar o jogo? Sim/Não ").lower()
+while True: # Loop para obter resposta do usuário
+    if(r == "s" or r == "sim"):
+      main()# Começa o jogo
+      break
+    if(r == "n" or r == "não" or r == "nao"):
+      print("-----------------------------------------------------------")
+      print("Fim do programa")
+      print("-----------------------------------------------------------")
+      break
+    else:# Se não acaba o programa
+          print("-----------------------------------------------------------")
+          print("[ERROR]: Não identificado")
+          print("-----------------------------------------------------------")
+          r = input("Iniciar o jogo? Sim/Não ").lower() # Método para evitar respostas incoerentes do jogador
+      
