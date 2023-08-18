@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ultimate Pedra, Papel e Tesoura</title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+    <h1 class="titulo-jogo">The Ultimate pedra, papel e tesoura</h1><br>
+    <main>
+        <section class="placar"><h1 id="placar-jogador"></h1><h3>VS</h3><h1 id="placar-computador"></h1></section>
+        <section class="display-jogo">
+            <div class="lado-jogador">
+                <div class="escolha-jogador-cabecalho"><h2>Escolha sua arma!</h2></div>
+                <div class="opcoes-jogador"></div>
+                    <input type="radio" name="opcoes" id="opcoes-jogador-pedra" onclick="selecionarOpcao()"><!--Chama a função no script-->
+                    <label for="opcoes-jogador-pedra">Pedra</label>
+                    <input type="radio" name="opcoes" id="opcoes-jogador-papel" onclick="selecionarOpcao()">
+                    <label for="opcoes-jogador-papel">Papel</label>
+                    <input type="radio" name="opcoes" id="opcoes-jogador-tesoura" onclick="selecionarOpcao()">
+                    <label for="opcoes-jogador-tesoura">Tesoura</label>
+                <div class="lance-jogador">
+                    <img id="img-jogador" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" 
+                    alt="lado do jogador">
+                </div>
+            </div>
+            <img src="img/img-versus.PNG" class="imagem-versus" alt="imagem-versus">
+            <div class="lado-computador">
+                <div class="escolha-jogador-computador"><h2>Computador</h2></div>
+                <div class="lance-computador">
+                    <p id="escolha-jogador-computador">Preparando lance</p>
+                    <img id="img-computador" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" 
+                    alt="lado do computador">
+                </div>
+            </div>
+        </section>
+        <h2 id="resultado">Desafie!</h2>
+        <section class="botoes">
+            <button class="botao" class="botao-iniciar" id="botao-iniciar">Desafiar</button>
+            <button class="botao" class="botao-reiniciar" id="botao-reiniciar">Reiniciar</button>
+            <button class="botao" class="botao-continuar" id="botao-continuar">Continuar</button>
+        </section>
+        <script src="script.js"></script>
+</body>
+</html>
